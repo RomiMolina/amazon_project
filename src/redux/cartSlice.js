@@ -19,7 +19,17 @@ export const cartSlice = createSlice({
             state.productNumber = state.productNumber + parseInt(action.payload.quantity);
         },
         removeFromCart: (state, action) => {
+            //find the product removing the array 
+            const productToRemove = state.products.find((product)=> product.id === action.payload.id);
 
+            // remove the quantity from product number
+            state.productsNumber = state.productsNumber - productToRemove;
+
+            // find index of the product removing
+            const index = state.products.findIndex((product)=> product.id === action.payload.id);
+
+            // remove from the array
+            state.products.splice(index, 1); 
         },
     }
 });

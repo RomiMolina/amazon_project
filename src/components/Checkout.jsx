@@ -1,15 +1,19 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom';
 import ProductDetails from './ProductDetails';
 import { GB_CURRENCY } from '../utils/constants';
+import { removeFromCart } from '../redux/cartSlice';
 
 const Checkout = () => {
-
+  const dispatch = useDispatch();
   const products = useSelector((state) => state.cart.products);
   const itemsNumber = useSelector((state) => state.cart.productNumber);
   const subtotal = useSelector((state) => state.cart.products.reduce((subtotal, product) => subtotal +
   (product.price * product.quantity), 0));
+
+
+
   return (
     <div className="h-screen bg-amazonclone-background" >
       <div className="min-w-[1000px] max-w-[1500px] m-auto pt-8" >
@@ -35,7 +39,8 @@ const Checkout = () => {
                             </Link>
                             </div>
                             <div>
-                              <button>Delete</button>
+                              <button className="text-sm xl:text-base font-semibold rounded text-blue-500 mt-2 
+                              mb-1" onClick={()=> dispatch(removeFromCart(product.id))}>Delete</button>
                             </div>
                             <div className="grid grid-cols-3 w-20 text-center">
                               <div className="text-xl xl:text-2xl bg-gray-400 rounded">-</div>
